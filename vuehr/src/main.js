@@ -17,7 +17,8 @@ Vue.use(Element);
 //定义$axios（可以不写，在组件中直接使用axios）
 Vue.prototype.$axios= axios;
 //Vue对象使用axios
-Vue.use(axios);
+// Vue.use(axios);
+Vue.prototype.$http = axios;
 //配全局属性配置，在任意组件内可以使用this.$qs获取qs对象
 Vue.prototype.$qs = qs;
 

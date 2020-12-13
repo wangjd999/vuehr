@@ -35,9 +35,9 @@
     data() {
       return {
         loading: false,
-        vcUrl: '/verifyCode?time='+new Date(),
+        // vcUrl: '/verifyCode?time='+new Date(),
         loginForm: {
-          username: 'admin',
+          username: 'root',
           password: '123',
           code:''
         },
@@ -50,24 +50,22 @@
       }
     },
     methods: {
-      updateVerifyCode() {
-        this.vcUrl = '/verifyCode?time='+new Date();
-      },
+      // updateVerifyCode() {
+      //   this.vcUrl = '/verifyCode?time='+new Date();
+      // },
       submitLogin() {
         this.$refs.loginForm.validate((valid) => {
           if (valid) {
             this.loading = true;
-            this.$axios.post('/user/getAllUser', this.$qs.stringify({name:'admin'})).then(resp => {
-              // this.loading = false;
-              // if (resp) {
-              //   this.$store.commit('INIT_CURRENTHR', resp.obj);
-              //   window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
-              //   let path = this.$route.query.redirect;
-              //   this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
-              // }else{
-              //   this.vcUrl = '/verifyCode?time='+new Date();
-              // }
-              alert(11111);
+            this.$axios.post('/login', this.$qs.stringify({username:'root',password:123})).then(resp => {
+              this.loading = false;
+              if (resp.status == 200) {
+                window.sessionStorage.setItem("user", JSON.stringify(resp.data.user));
+                let path = this.$route.query.redirect;
+                this.$router.replace((path == '/' || path == undefined) ? '/index' : path);
+              }else{
+                // this.vcUrl = '/verifyCode?time='+new Date();
+              }
             })
           } else {
             return false;
